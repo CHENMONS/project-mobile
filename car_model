@@ -1,0 +1,31 @@
+class Car {
+  final int id;
+  final String name;
+  final String description;
+  final int pricePerDay;
+  final String status;
+
+  Car({required this.id, required this.name, required this.description, required this.pricePerDay, required this.status});
+
+  factory Car.fromJson(Map<String, dynamic> json) {
+    return Car(
+      id: json['id'] is String ? int.tryParse(json['id']) ?? 0 : json['id'], // Pastikan id diubah menjadi int
+      name: json['name'],
+      description: json['description'],
+      pricePerDay: json['price_per_day'] is String
+          ? int.tryParse(json['price_per_day']) ?? 0 // Pastikan pricePerDay menjadi int
+          : json['price_per_day'],
+      status: json['status'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'description': description,
+      'price_per_day': pricePerDay,
+      'status': status,
+    };
+  }
+}
